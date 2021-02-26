@@ -27,7 +27,7 @@ const app = require("express").Router();
     }).catch(err => {
       res.json(err);
     }); 
-  })
+  });
 
   app.put("/api/workouts/:id", function(req, res) {
     db.Workout.findOneAndUpdate(
@@ -37,6 +37,15 @@ const app = require("express").Router();
     }).catch(err => {
       res.json(err);
     }); 
+  });
+
+  app.get("/api/workouts", function(req, res) {
+    db.Workout.aggregate(
+      [
+        {$addFields: {
+          totalDuration: {$sum: "$exercises.duration"}
+        }}
+      ])
   })
 
  
