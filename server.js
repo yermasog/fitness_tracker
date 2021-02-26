@@ -16,7 +16,7 @@ app.use(express.static("public"));
 app.use(require("./routes/htmlroutes"));
 app.use(require("./routes/apiroutes"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",{ useNewUrlParser: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",{ useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: true })
 .then(()=>{console.log("connected to db")});
 
 app.listen(PORT, () => {
