@@ -2,8 +2,12 @@ const db = require("../models");
 const app = require("express").Router();
 
   app.get("/api/workouts", function(req, res) {
-    console.log("this is the result:", req.body);
-    db.Workout.find({}).then(function(dbWorkouts) {
+    // console.log("this is the result:", req.body);
+    db.Workout.aggregate([
+      {$addFields: {
+        totalDuration: {$sum: "$exercises.duration"}
+      }}
+    ]).then(function(dbWorkouts) {
       res.json(dbWorkouts);
     }).catch(err => {
       res.json(err);
@@ -22,16 +26,24 @@ const app = require("express").Router();
   });
 
   app.get("/api/workouts/range", function(req,res) {
-    db.Workout.find({}).then(function(dbWorkouts) {
-      res.json(dbWorkouts);
-    }).catch(err => {
-      res.json(err);
-    }); 
+    db.Workout.aggregate(
+      [
+        {$addFields: {
+          totalDuration: {$sum: "$exercises.duration"}
+        }}
+      ]).sort({
+        _id:-1
+      }).limit(7)
+      .then(dbWorkouts => {
+        res.json(dbWorkouts);
+      }).catch(err => {
+        res.json(err);
+      }); 
   });
 
   app.put("/api/workouts/:id", function(req, res) {
-    db.Workout.findOneAndUpdate(
-      {_id: req.params.id}, {"$push" : { exercises: req.body}}
+    db.Workout.findByIdAndUpdate(
+      {_id: req.params.id}, {$push : { exercises: req.body}}, {new: true}
     ).then(dbWorkouts => {
       res.json(dbWorkouts);
     }).catch(err => {
@@ -39,14 +51,6 @@ const app = require("express").Router();
     }); 
   });
 
-  app.get("/api/workouts", function(req, res) {
-    db.Workout.aggregate(
-      [
-        {$addFields: {
-          totalDuration: {$sum: "$exercises.duration"}
-        }}
-      ])
-  })
 
  
 module.exports = app
