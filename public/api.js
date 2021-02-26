@@ -31,7 +31,7 @@ const API = {
     });
 
     const json = await res.json();
-
+    console.log("this is the thing",json);
     return json;
   },
 

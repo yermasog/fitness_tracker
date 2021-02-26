@@ -2,8 +2,9 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var workoutSchema = new Schema({
-    day: { type: Date, required: true },
-    excercises: [{
+    day: { type: Date, required: true, default: new Date(new Date().setDate(new Date().getDate())) },
+
+    exercises: [{
         type: {
             type: String,
             required: true
