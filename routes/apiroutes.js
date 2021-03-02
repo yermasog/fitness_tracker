@@ -43,7 +43,7 @@ const app = require("express").Router();
 
   app.put("/api/workouts/:id", function(req, res) {
     db.Workout.findByIdAndUpdate(
-      {_id: req.params.id}, {$push : { exercises: req.body}}, {new: true}
+      req.params.id, {$push : { exercises: req.body}}, {new: true}
     ).then(dbWorkouts => {
       res.json(dbWorkouts);
     }).catch(err => {
