@@ -18,6 +18,7 @@ const app = require("express").Router();
     console.log("this is the result", body);
       db.Workout.create(body)
       .then(dbWorkouts => {
+        console.log(dbWorkouts);
         res.json(dbWorkouts);
       })
       .catch(err => {
