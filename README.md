@@ -15,4 +15,7 @@ An app that allows users to view, create, and track daily workouts. Users can lo
 
 https://github.com/yermasog/fitness_tracker
 
+Deployed link: 
+https://fitness-tracker987.herokuapp.com/
+
 
