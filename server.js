@@ -25,7 +25,8 @@ mongoose.connect(
     useFindAndModify: false
   }
 )
-.then(()=>{console.log("connected to db")});
+.then(()=>{console.log("connected to db")})
+.catch(err => console.log(err));
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
