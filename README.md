@@ -4,7 +4,7 @@
 An app that allows users to view, create, and track daily workouts. Users can log multiple exercises in a workout in one day. Users can track the type of exercise, weights, sets, reps, and duration. Users can also track distance for cardio exercises. 
 
 ## Demo:
-<img src="public\images\dashboard.png">
+<img src="public\images\main.png">
 
 <img src="public\images\exercise.png">
 
